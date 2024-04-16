@@ -8,16 +8,37 @@
 
 ## Hyperparameters
 Final Hyperparamters Determined by Hyperparameter Tuning: 
+| Model | Learning Rate | Weight Decay | First Moment Decay | Second Moment Decay | Stability Parameter | Model Size | Dropout | Max Patches | LR Decay Factor | LR Decay Patience | 
+| :-------: | :-------------: | :------------: |:------------------:|:-------------------: | :-------------------: | :--------------------: | :-------: | :-----------: | :-----------: | :-----------: |
 | Model | Learning Rate | Weight Decay | First Moment Decay | Second Moment Decay | Stability Parameter | Model Size | Dropout | Max Patches | LR decay proportion | LR decay patience | 
 
-Hyperparameters were tuned in 19 stages in which 1-5 individual hyperparameters were altered and the rest were frozen. All specific configurations can be accessed in the folder tuning_configs. The tuning patience was set to 20 for epochs 1-X, and 30 for epochs X-X. 
+Hyperparameters were tuned in 19 stages in which 1-5 individual hyperparameters were altered and the rest were frozen. All specific configurations can be accessed in the folder tuning_configs. The tuning patience was set to 20 for stages 1-7.1, and 30 for stages 7.2-19. The overall maximum epochs was 300 for every evaluation.
 
 <details>
 <summary>
 Hyperparameter Tuning Stages
 </summary>
+An issue with unstable random seeds effected some early experiments, but this was resolved before tuning stage 11 for each model. Models which were not effected by this were not subject to tuning stages 11 and 12, which repeated previous models using fixed random seeds.
 
-- Stage 1: Learning Rate, Max Patches, etc.
+- Stage 1: Learning Rate, Model Size
+- Stage 2: Dropout, Max Patches
+- Stage 3: First Moment Decay, Second Moment Decay
+- Stage 4: Weight Decay, Learning Rate
+- Stage 5: First Moment Decay, Stability Parameter
+- Stage 6: Model Size, Max Patches
+- Stage 7: LR Decay Factor, LR Decay Patience
+- Stage 8: Learning Rate, Dropout
+- Stage 9: Model Size
+- Stage 10: Learning Rate, Model Size, LR Decay Patience
+- Stage 11: Repeat of stage 10 with fixed random seeds
+- Stage 12: Repeat of best from first 9 stages with fixed random seeds
+- Stage 13: Dropout, Max Patches
+- Stage 14: LR Decay Factor, LR Decay Patience
+- Stage 15: Learning Rate, Model Size
+- Stage 16: Max Patches, Weight Decay
+- Stage 17: Model Size
+- Stage 18: First Moment Decay, Second Moment Decay
+- Stage 19: Learning Rate, First Moment Decay, Model Size, Dropout, Max Patches  
 
 
 </details>
