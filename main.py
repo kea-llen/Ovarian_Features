@@ -164,13 +164,8 @@ parser.add_argument('--features_folder', type=str, default="/",
                     help='folder within data_root_dir containing the features - must contain pt_files/h5_files subfolder')
 parser.add_argument('--features_folder_aug', type=str, default="/",
                     help='folder within data_root_dir containing augmented features if these are being used during training - must contain pt_files/h5_files subfolder')
-parser.add_argument('--small_features_folder', type=str, default="/",
-                    help='folder within data_root_dir containing the small features if needed (only used in graph_ms)- must contain pt_files/h5_files subfolder')
 parser.add_argument('--coords_path', type=str, default=None,
                     help='path to coords pt files if needed')
-parser.add_argument('--small_coords_path', type=str, default=None,
-                    help='path to small coords pt files if needed (only used in graph_ms)')
-parser.add_argument('--graph_path', type=str, default=None,help='path to folder containing pre-created graph features and adjacencies from create_graphs.py')
 parser.add_argument('--csv_path',type=str,default=None,help='path to dataset_csv file')
 parser.add_argument('--exp_code', type=str, help='experiment code for saving results')
 parser.add_argument('--log_data', action='store_true', default=False, help='log data using tensorboard')
@@ -206,22 +201,9 @@ parser.add_argument('--bag_loss', type=str, choices=['svm', 'ce', 'balanced_ce']
                      help='slide-level classification loss function (default: ce)')
 
 ## Model settings
-parser.add_argument('--model_type', type=str, choices=['clam_sb', 'clam_mb', 'mil', 'graph', 'graph_ms','patchgcn'], default='clam_sb', help='type of model (default: clam_sb, clam w/ single attention branch)')
+parser.add_argument('--model_type', type=str, choices=['clam_sb', 'clam_mb', 'mil'], default='clam_sb', help='type of model (default: clam_sb, clam w/ single attention branch)')
 parser.add_argument('--model_size', type=str, choices=['256','tinier3','tinier_resnet18','tinier2_resnet18','tiny_resnet18','small_resnet18','large_resnet18','mega_resnet18','tinier', 'tiny128','tiny','smaller','small', 'big','hipt_mega_tiny','hipt_mega_small','hipt_mega_big','hipt_mega_mega','hipt_mega_mega2','hipt_const','hipt_big','hipt_medium','hipt_small','hipt_smaller','hipt_smallest'], default='small', help='size of model, does not affect mil')
 parser.add_argument('--task', type=str, choices=['ovarian_5class','ovarian_1vsall','nsclc','treatment','treatment_switched'])
-
-## Graph model options
-parser.add_argument('--graph_edge_distance',type=int,default=750,help="Maximum distance between nodes in graph to add edges.")
-parser.add_argument('--offset',type=int,default=512,help="The offset applied to the larger patches in graph_ms, which will typically be half of the size of the smaller magnification patches. This is needed due to coords being top-left rather than centre")
-parser.add_argument('--message_passing',type=str, choices=['standard','gatv2'], default='standard',help='type of graph message passing layers, with gatv2 being attention-based')
-parser.add_argument('--gat_heads',type=int,default=1,help='number of heads on GATv2 message passing layers')
-parser.add_argument('--message_passings', type=int, default=1, help='number of message passing layers for each pooling layer, where each message passing connects first order neighbors')
-parser.add_argument('--pooling', type=str, choices=['topk','sag'], default='topk', help='type of pooling layers, with sag being self-attention based')
-parser.add_argument('--pooling_factor',type=float,default=0.8,help="proportion of nodes remaining after each graph pooling layer")
-parser.add_argument('--pooling_layers',type=int,default=3,help="number of graph message passing and pooling layers")
-parser.add_argument('--embedding_size',type=int,default=128,help="size of graph node embeddings")
-parser.add_argument('--plot_graph',choices=["none","together","seperate"],default="none",help="whether to plot a graph in graph_ms, only seperate actually works at the minute")
-parser.add_argument('--ms_features',choices=["naive","seperate_zero","seperate_avg"],default="naive",help="whether to assume all patch features are the same (naive) or keep them separate across magnifications")
 
 ## Data settings
 parser.add_argument('--label_frac', type=float, default=1.0,
@@ -323,8 +305,7 @@ settings = {'num_splits': args.k,
             "drop_out": args.drop_out,
             "use_early_stopping": args.early_stopping,
             'weighted_sample': args.weighted_sample,
-            'opt': args.opt,
-            'graph_edge_distance': args.graph_edge_distance}
+            'opt': args.opt}
 
 if args.model_type in ['clam_sb', 'clam_mb']:
    settings.update({'bag_weight': args.bag_weight,
@@ -355,12 +336,10 @@ else:
 dataset = Generic_MIL_Dataset(csv_path = args.csv_path,
                             data_dir = os.path.join(args.data_root_dir, args.features_folder),
                             data_dir_aug = os.path.join(args.data_root_dir, args.features_folder_aug),
-                            small_data_dir = os.path.join(args.data_root_dir, args.small_features_folder),
                             max_patches_per_slide=args.max_patches_per_slide,
                             perturb_variance=args.perturb_variance,
                             number_of_augs=args.number_of_augs,
                             coords_path = args.coords_path,
-                            small_coords_path = args.small_coords_path,
                             shuffle = False, 
                             seed = args.seed, 
                             print_info = True,
@@ -375,11 +354,6 @@ dataset = Generic_MIL_Dataset(csv_path = args.csv_path,
                             model_architecture = args.model_architecture,
                             model_type = args.model_type,
                             batch_size = args.batch_size,
-                            graph_edge_distance = args.graph_edge_distance,
-                            offset = args.offset,
-                            plot_graph = args.plot_graph,
-                            ms_features = args.ms_features,
-                            graph_path = args.graph_path,
                             ignore=[])
 
 if not os.path.isdir(args.results_dir):

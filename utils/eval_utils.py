@@ -4,8 +4,6 @@ import torch
 import torch.nn as nn
 from models.model_mil import MIL_fc, MIL_fc_mc
 from models.model_clam import CLAM_SB, CLAM_MB
-from models.model_graph import Graph_Model
-from models.model_graph_mil import PatchGCN
 import os
 import pandas as pd
 from utils.utils import *
@@ -35,11 +33,6 @@ def initiate_model(args, ckpt_path, num_features=0):
         model = CLAM_SB(**model_dict)
     elif args.model_type =='clam_mb':
         model = CLAM_MB(**model_dict)
-    elif args.model_type in ['graph','graph_ms']:
-         model = Graph_Model(pooling_factor=args.pooling_factor, pooling_layers=args.pooling_layers,  message_passings=args.message_passings, embedding_size=args.embedding_size,num_features=num_features, num_classes=args.n_classes,drop_out=args.drop_out, message_passing=args.message_passing, pooling=args.pooling)
-    elif args.model_type =='patchgcn':
-         model_dict = {'num_layers': 4, 'edge_agg': 'spatial', 'resample': 0.00, 'n_classes': args.n_classes, 'dropout': args.drop_out, 'hidden_dim': args.embedding_size }
-         model = PatchGCN(**model_dict)
 
     else: # args.model_type == 'mil'
         if args.n_classes > 2:
