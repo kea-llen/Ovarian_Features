@@ -142,11 +142,11 @@ elif args.task == 'treatment':
 
 elif args.task == 'malignancy':
     args.n_classes=2
-    dataset =  Generic_WSI_Classification_Dataset(csv_path = 'dataset_csv/lymph_nodes_train.csv',
+    dataset =  Generic_WSI_Classification_Dataset(csv_path = '/mount_data/LN_Cohort_data/LN_train_set.csv',
                             shuffle = False,
                             seed = args.seed,
                             print_info = True,
-                            label_dict = {'benign':0,'malignant':1},
+                            label_dict = {'benign':0,'metastasis':1},
                             patient_strat= True,
                             ignore=[])
 

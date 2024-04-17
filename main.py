@@ -332,7 +332,7 @@ elif args.task == 'nsclc':
 
 elif args.task == 'malignancy':
     args.n_classes=2
-    args.label_dict = {'benign':0,'malignant':1}
+    args.label_dict = {'benign':0,'metastasis':1}
 
 else:
     raise NotImplementedError
