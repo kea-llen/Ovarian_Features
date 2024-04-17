@@ -203,7 +203,7 @@ parser.add_argument('--bag_loss', type=str, choices=['svm', 'ce', 'balanced_ce']
 ## Model settings
 parser.add_argument('--model_type', type=str, choices=['clam_sb', 'clam_mb', 'mil'], default='clam_sb', help='type of model (default: clam_sb, clam w/ single attention branch)')
 parser.add_argument('--model_size', type=str, choices=['256','tinier3','tinier_resnet18','tinier2_resnet18','tiny_resnet18','small_resnet18','large_resnet18','mega_resnet18','tinier', 'tiny128','tiny','smaller','small', 'big','hipt_mega_tiny','hipt_mega_small','hipt_mega_big','hipt_mega_mega','hipt_mega_mega2','hipt_const','hipt_big','hipt_medium','hipt_small','hipt_smaller','hipt_smallest'], default='small', help='size of model, does not affect mil')
-parser.add_argument('--task', type=str, choices=['ovarian_5class','ovarian_1vsall','nsclc','treatment','treatment_switched'])
+parser.add_argument('--task', type=str, choices=['ovarian_5class','ovarian_1vsall','nsclc','treatment','treatment_switched','malignancy'])
 
 ## Data settings
 parser.add_argument('--label_frac', type=float, default=1.0,
@@ -329,6 +329,10 @@ elif args.task =='treatment':
 elif args.task == 'nsclc':
     args.n_classes=2
     args.label_dict = {'luad':0,'lusc':1}
+
+elif args.task == 'malignancy':
+    args.n_classes=2
+    args.label_dict = {'benign':0,'malignant':1}
 
 else:
     raise NotImplementedError
