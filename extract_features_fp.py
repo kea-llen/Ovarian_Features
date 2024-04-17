@@ -12,8 +12,6 @@ from torch.utils.data import DataLoader
 from models.resnet_custom import resnet18_baseline,resnet50_baseline
 from utils.utils import collate_features
 from utils.file_utils import save_hdf5
-from HIPT_4K.hipt_4k import HIPT_4K
-from HIPT_4K.hipt_model_utils import eval_transforms
 
 import torchvision
 import torch
