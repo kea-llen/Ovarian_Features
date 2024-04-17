@@ -1,128 +1,100 @@
-## Predicting Ovarian Cancer Treatment Response in Histopathology using Hierarchical Vision Transformers and Multiple Instance Learning 
+## Histopathology Foundation Models Significantly Improve Ovarian Cancer Subtyping
 <img src="CISTIB logo.png" align="right" width="240"/>
 
-*HIPT-ABMIL is a transformer-based approach to classifying histopathology slides which leverages spatial information for better prognostication.* 
-
-<img src="HIPT-AMBIL-ModelDiagram-Background-min.png" align="centre" width="900"/>
-
-This repo was created as part of an entry to the MICCAI 2023 challenge [*automated prediction of treatment effectiveness in ovarian cancer using histopathological images* (ATEC23)](https://github.com/cwwang1979/MICCAI_ATEC23challenge). The training data was made available through [TCIA](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=83593077).
-
-HIPT-CLAM is a multiple instance learning (MIL) approach in which features are extracted from 4096x4096 pixel regions using the pretrained hierarchical transformer model [HIPT_4K](https://github.com/mahmoodlab/HIPT) and these features are aggregated to generate a slide-level representation using the attention-based multiple instance learning (ABMIL) approach [CLAM](https://github.com/mahmoodlab/CLAM). 
+*An extensive analysis of feature extraction techniques in attention-based multiple instance learning ([ABMIL](https://proceedings.mlr.press/v80/ilse18a.html?ref=https://githubhelp.com))* 
 
 
-## Code Runs
-The following code was used in producing the results submitted as part of the ATEC23 challenge.
+<img src="ABMILarchitecture-min.png" align="centre" width="900"/>
+
+## Hyperparameters
+Final Hyperparamters Determined by Hyperparameter Tuning: 
+| Model | Learning Rate | Weight Decay | First Moment Decay | Second Moment Decay | Stability Parameter | Model Size | Dropout | Max Patches | LR Decay Factor | LR Decay Patience | 
+| :-------: | :-------------: | :------------: |:------------------:|:-------------------: | :-------------------: | :--------------------: | :-------: | :-----------: | :-----------: | :-----------: |
+| Model | Learning Rate | Weight Decay | First Moment Decay | Second Moment Decay | Stability Parameter | Model Size | Dropout | Max Patches | LR decay proportion | LR decay patience | 
+
+Hyperparameters were tuned in 19 stages in which 1-5 individual hyperparameters were altered and the rest were frozen. All specific configurations can be accessed in the folder tuning_configs. The tuning patience was set to 20 for stages 1-7.1, and 30 for stages 7.2-19. The overall maximum epochs was 300 for every evaluation.
 
 <details>
 <summary>
-Data acquisition
+Hyperparameter Tuning Stages
 </summary>
-Before running any code, we downloaded the training data from TCIA, and turned the single-level svs files into multi-level (pyramidal) svs files using libvips. Some level of compression was necessary here to reduce file sizes, though we found compression Q90 indistinguishable from uncompressed images. Single-slide example:
-  
-``` shell
-vips tiffsave "I:\treatment_data\2-1613704B.svs" "I:\treatment_data\pyramid_jpeg90compress\2-1613704B.svs" --compression jpeg --Q 90 --tile --pyramid
-```
+An issue with unstable random seeds effected some early experiments, but this was resolved before tuning stage 11 for each model. Models which were not effected by this were not subject to tuning stages 11 and 12, which repeated previous models using fixed random seeds.
+
+- Stage 1: Learning Rate, Model Size
+- Stage 2: Dropout, Max Patches
+- Stage 3: First Moment Decay, Second Moment Decay
+- Stage 4: Weight Decay, Learning Rate
+- Stage 5: First Moment Decay, Stability Parameter
+- Stage 6: Model Size, Max Patches
+- Stage 7: LR Decay Factor, LR Decay Patience
+- Stage 8: Learning Rate, Dropout
+- Stage 9: Model Size
+- Stage 10: Learning Rate, Model Size, LR Decay Patience
+- Stage 11: Repeat of stage 10 with fixed random seeds
+- Stage 12: Repeat of best from first 9 stages with fixed random seeds
+- Stage 13: Dropout, Max Patches
+- Stage 14: LR Decay Factor, LR Decay Patience
+- Stage 15: Learning Rate, Model Size
+- Stage 16: Max Patches, Weight Decay
+- Stage 17: Model Size
+- Stage 18: First Moment Decay, Second Moment Decay
+- Stage 19: Learning Rate, First Moment Decay, Model Size, Dropout, Max Patches  
+
+
 </details>
 
+## Results
+
+<summary>
+Cross-validation Confusion Matrices
+</summary>
+  
 <details>
 <summary>
-Tissue region extraction
+40x Cross-validation
 </summary>
-We segmented tissue using Otsu thresholding and extracted non-overlapping 4096x4096 tissue regions:
+
+|  | HGSC | LGSC |  CCC | EC | MC |
+| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
+| HGSC | **429** | 0 | 19 | 25 | 11 |
+| LGSC | 17 | **0** | 3 | 1 | 1 |
+| CCC | 39 | 0 | **94** | 9 | 14 |
+| EC | 38 | 1 | 1 | **139** | 24 |
+| MC | 10 | 0 | 9 | 39 | **37** |
+
+class 0 precision: 0.80488 recall: 0.88636 f1: 0.84366
+
+class 1 precision: 0.00000 recall: 0.00000 f1: 0.00000
+
+class 2 precision: 0.74603 recall: 0.60256 f1: 0.66667
+
+class 3 precision: 0.65258 recall: 0.68473 f1: 0.66827
+
+class 4 precision: 0.42529 recall: 0.38947 f1: 0.40659
+
+
+</details>
+Etc.
+
+
+## Code Examples
+The following code includes examples from every stage of pre-processing, hyperparameter tuning, and model validation.  
+
+<details>
+<summary>
+Tissue patch extraction
+</summary>
+We segmented tissue using saturation thresholding and extracted non-overlapping tissue regions which corresponded to 256x256 pixel patches at 40x (e.g. 512x512 for 20x, 1024x1024 for 10x). At this stage all images are still at 40x magnification, and only the patch size is changing:
   
 ``` shell
-python create_patches_fp.py --source "../mount_i/treatment_data/pyramid_jpeg90compress" --save_dir "../mount_outputs/extracted_mag20x_patch4096_fp_updated" --patch_size 4096 --step_size 4096 --seg --patch --stitch --sthresh 15 --mthresh 5 --use_otsu --closing 100
+## 40x 256x256 patches for use in 40x experiments
+python create_patches_fp.py --source "/mnt/data/Katie_WSI/edrive" --save_dir "/mnt/results/patches/ovarian_leeds_mag40x_patch256_DGX_fp" --patch_size 256 --step_size 256 --seg --patch --stitch 	
+## 40x 8192x8192 patches for use in 1.25x experiments
+python create_patches_fp.py --source "/mnt/data/Katie_WSI/edrive" --save_dir "/mnt/results/patches/ovarian_leeds_mag40x_patch8192_DGX_fp" --patch_size 8192 --step_size 8192 --seg --patch --stitch 	
 ``` 
 </details>
-
-<details>
-<summary>
-Feature extraction
-</summary>
-We extracted [1,192] features from each 4096x4096 region using HIPT_4K:
-  
-``` shell
-python extract_features_fp.py --use_transforms 'HIPT' --model_type 'HIPT_4K' --data_h5_dir "../mount_outputs/extracted_mag20x_Q90_patch4096_fp_updated" --data_slide_dir "../mount_i/treatment_data/pyramid_jpeg90compress" --csv_path "dataset_csv/set_treatment.csv" --feat_dir "../mount_outputs/features/treatment_Q90_hipt4096_features_normalised_updatedsegmentation" --batch_size 1 --slide_ext .svs 
-```
-</details>
-
-<details>
-<summary>
-Hyperparameter tuning
-</summary>
-Grid tuning was performed using RayTune with hyperparameter options defined within main.py. This example is from tuning fold 0 of the 5-fold cross-validation using HIPT-ABMIL: 
-  
-``` shell
-python main.py --tuning --hardware DGX --tuning_output_file /mnt/results/tuning_results/main_treatment_Q90_betterseg_patience30mineverloss_3reps_noaugs_DGX_moreoptions_fold0.csv --num_tuning_experiments 3 --data_slide_dir "/mnt/data/ATEC_jpeg90compress" --min_epochs 0 --early_stopping --split_dir "treatment_5fold_100" --k 1 --results_dir /mnt/results --exp_code treatment_HIPTnormalised_Q90_betterseg_patience30mineverloss_3reps_noaugs_tuning_moreoptions_fold0 --subtyping --weighted_sample --bag_loss ce --task treatment --max_epochs 200 --model_type clam_sb --no_inst_cluster --log_data --csv_path 'dataset_csv/set_treatment.csv' --data_root_dir "/mnt/data" --features_folder treatment_Q90_hipt4096_features_normalised_updatedsegmentation
-```
-</details>
-
-<details>
-<summary>
-Model training
-</summary>
-The best model from the 5-fold cross-validation experiment (as judged by averaged validation set cross-entropy loss across three repeats and five folds) was trained:
-  
-``` shell
-python main.py --hardware DGX --max_patches_per_slide 15 --data_slide_dir "/mnt/data/ATEC_jpeg90compress" --min_epochs 0 --early_stopping --drop_out 0.0 --lr 0.0005 --reg 0.0001 --model_size hipt_smaller --split_dir "treatment_5fold_100" --k 5 --results_dir /mnt/results --exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_bestfromsecondbigtuning --subtyping --weighted_sample --bag_loss ce --task treatment --max_epochs 1000 --model_type clam_sb --no_inst_cluster --csv_path 'dataset_csv/set_treatment.csv' --data_root_dir "/mnt/data" --features_folder treatment_Q90_hipt4096_features_normalised_updatedsegmentation
-```
-</details>
-
-<details>
-<summary>
-Model evaluation
-</summary>
-The model was evaluated on the test sets of the five-fold cross validation with 100,000 iterations of bootstrapping:
-  
-``` shell
-python eval.py --drop_out 0.0 --model_size hipt_smaller --models_exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_bestfromsecondbigtuning_s1 --save_exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_bestfromsecondbigtuning_bootstrapping --task treatment --model_type clam_sb --results_dir /mnt/results --data_root_dir "/mnt/data" --k 5 --features_folder "treatment_Q90_hipt4096_features_normalised_updatedsegmentation" --csv_path 'dataset_csv/set_treatment.csv' 
-python bootstrapping.py --num_classes 2 --model_names  treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_bestfromsecondbigtuning_bootstrapping --bootstraps 100000 --run_repeats 1 --folds 5
-```
-
-The cross-validation results for this optimal HIPT-ABMIL model were as follows:
-
-``` shell
- Confusion Matrix:
- [[ 76  49]
- [ 29 128]]
-
- average ce loss:  0.4858174402095372 (not bootstrapped)
- AUC mean:  [0.8206680412411297]  AUC std:  [0.02530094639907452]
- F1 mean:  [0.7659177381223935]  F1 std:  [0.02579712919409385]
- accuracy mean:  [0.7234604255319149]  accuracy std:  [0.02667653193254119]
- balanced accuracy mean:  [0.7117468943178861]  balanced accuracy std:  [0.026864606981070703]
-```
-</details>
-
-<details>
-<summary>
-Challenge test set
-</summary>
-
-First, the test set images were pre-processed into pyramid svs files through the same approach as used for the training set images (though these originated as .bmp files rather than .svs files), for example:
-
-``` shell
-vips tiffsave "I:\treatment_data\2023MICCAI_testing_set\0.BMP" "I:\treatment_data\testpyramid_jpeg90compress\0.svs" --compression jpeg --Q 90 --tile --pyramid
-```
-
-Patches were selected (one per slide due to the size of these images) and features extracted:
-``` shell
-python create_patches_fp.py --source "../mount_i/treatment_data/testpyramid_jpeg90compress" --save_dir "../mount_outputs/extracted_mag20x_patch4096_fp_testset_updated_Q90" --patch_size 4096 --step_size 4096 --seg --patch --stitch --pad_slide --sthresh 15 --mthresh 5 --use_otsu --closing 200 --atfilter 8
-python extract_features_fp.py --use_transforms 'HIPT' --model_type 'HIPT_4K' --data_h5_dir "../mount_outputs/extracted_mag20x_patch4096_fp_testset_updated_Q90" --data_slide_dir "../mount_i/treatment_data/testpyramid_jpeg90compress" --csv_path "dataset_csv/set_treatment_test.csv" --feat_dir "../mount_outputs/features/treatment_hipt4096_features_normalised_test_updated_Q90patches" --batch_size 1 --slide_ext .svs
-```
-
-The hyperparameters of the best-performing model on internal data was applied to create an ensemble of four models:
-``` shell
-python main.py --hardware DGX --max_patches_per_slide 15 --data_slide_dir "../mount_i/treatment_data/pyramid_jpeg90compress" --min_epochs 0 --early_stopping --drop_out 0.0 --lr 0.0005 --reg 0.0001 --model_size hipt_smaller --split_dir "treatment_submission_folds" --k 4 --results_dir results --exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_4fold_7525test --subtyping --weighted_sample --bag_loss ce --task treatment --max_epochs 1000 --model_type clam_sb --no_inst_cluster --csv_path 'dataset_csv/set_treatment_plus_test.csv' --data_root_dir "../mount_outputs/features/" --features_folder treatment_Q90_hipt4096_features_normalised_updatedsegmentation
-```
-
-Finally, predictions were made on the TMA challenge test set, with the median of these predictions submitted for the challenge:
-``` shell
-python eval.py --drop_out 0.0 --model_size hipt_smaller --models_exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_4fold_7525test_s1 --save_exp_code treatment_HIPTnormalised_Q90_betterseg_15patches_drop0lr0005reg0001_modelhiptsmaller_ABMILsb_ce_20x_5fold_noaugs_4fold_7525test_Q90patchestest_bootstrapping --task treatment --model_type clam_sb --results_dir results --data_root_dir "../mount_outputs/features/" --k 4 --features_folder "treatment_Q90_hipt4096_features_normalised_updatedsegmentation" --csv_path 'dataset_csv/set_treatment_plus_test.csv'
-```
-</details>
-
+etc.
 
 
 ## Reference
-This code is an extension of our [previous repository](https://github.com/scjjb/DRAS-MIL), which itself was forked from the [CLAM repository](https://github.com/mahmoodlab/CLAM) with corresponding [paper](https://www.nature.com/articles/s41551-020-00682-w). Code is also used from the [HIPT repository](https://github.com/mahmoodlab/HIPT), including pretrained model weights. This repository and the original CLAM repository are both available for non-commercial academic purposes under the GPLv3 License.
+This code is an extension of our [previous repository](https://github.com/scjjb/DRAS-MIL), which was originally based on the [CLAM repository](https://github.com/mahmoodlab/CLAM) with corresponding [paper](https://www.nature.com/articles/s41551-020-00682-w). This repository and the original CLAM repository are both available for non-commercial academic purposes under the GPLv3 License.
