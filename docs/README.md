@@ -24,7 +24,6 @@ Final Hyperparamters Determined by Hyperparameter Tuning:
 | ViT Histo | 1e-5 | 1e-3 | 0.9 | 0.999 | 1e-5 | 10 | 0.75 | [512,256] | 0.0 | 1000 | 
 
 
-| Model | Learning Rate | Weight Decay | First Moment Decay | Second Moment Decay | Stability Parameter | Model Size | Dropout | Max Patches | LR decay proportion | LR decay patience | 
 
 Hyperparameters were tuned in 19 stages in which 1-5 individual hyperparameters were altered and the rest were frozen. All specific configurations can be accessed in the folder tuning_configs. The tuning patience was set to 20 for stages 1-7.1, and 30 for stages 7.2-19. The overall maximum epochs was 300 for every evaluation.
 
