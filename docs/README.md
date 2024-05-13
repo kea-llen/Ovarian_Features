@@ -59,35 +59,107 @@ An issue with unstable random seeds effected some early experiments, but this wa
 ## Results
 
 <summary>
-Cross-validation Confusion Matrices
+Confusion Matrices
 </summary>
   
 <details>
 <summary>
-40x Cross-validation
+ViT-L Histo (UNI) Cross-validation
 </summary>
 
 |  | HGSC | LGSC |  CCC | EC | MC |
 | :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
-| HGSC | **429** | 0 | 19 | 25 | 11 |
-| LGSC | 17 | **0** | 3 | 1 | 1 |
-| CCC | 39 | 0 | **94** | 9 | 14 |
-| EC | 38 | 1 | 1 | **139** | 24 |
-| MC | 10 | 0 | 9 | 39 | **37** |
+| HGSC | **1165** | 46 | 28 | 25 | 2 |
+| LGSC | 39 | **43** | 7 | 3 | 0 |
+| CCC | 29 | 10 | **154** | 3 | 2 |
+| EC | 21 | 4 | 2 | **173** | 9 |
+| MC | 1 | 0 | 4 | 28 | **66** |
 
-class 0 precision: 0.80488 recall: 0.88636 f1: 0.84366
+class 0 precision: 0.92829 recall: 0.92022 f1: 0.92424
 
-class 1 precision: 0.00000 recall: 0.00000 f1: 0.00000
+class 1 precision: 0.41748 recall: 0.46739 f1: 0.44103
 
-class 2 precision: 0.74603 recall: 0.60256 f1: 0.66667
+class 2 precision: 0.78974 recall: 0.77778 f1: 0.78372
 
-class 3 precision: 0.65258 recall: 0.68473 f1: 0.66827
+class 3 precision: 0.74569 recall: 0.82775 f1: 0.78458
 
-class 4 precision: 0.42529 recall: 0.38947 f1: 0.40659
+class 4 precision: 0.83544 recall: 0.66667 f1: 0.74157
+
+</details>
+
+
+
+|  | HGSC | LGSC |  CCC | EC | MC |
+| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
+| HGSC | **** |  |  |  |  |
+| LGSC |  | **** |  |  |  |
+| CCC |  |  | **** |  |  |
+| EC |  |  |  | **** |  |
+| MC |  |  |  |  | **** |
+
+|  | HGSC | LGSC |  CCC | EC | MC |
+| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
+| HGSC | **** | 0 | 0 | 0 | 0 |
+| LGSC | 0 | **** | 0 | 0 | 0 |
+| CCC | 0 | 0 | **** | 0 | 0 |
+| EC | 0 | 0 | 0 | **** | 0 |
+| MC | 0 | 0 | 0 | 0 | **** |
+
+
+<details>
+<summary>
+ViT-L Histo (UNI) Hold-out Testing
+</summary>
+
+|  | HGSC | LGSC |  CCC | EC | MC |
+| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
+| HGSC | **18** | 0 | 0 | 2 | 0 |
+| LGSC | 0 | **14** | 2 | 2 | 2 |
+| CCC | 3 | 0 | **17** | 0 | 0 |
+| EC | 1 | 0 | 0 | **19** | 0 |
+| MC | 0 | 0 | 0 | 0 | **20** |
+
+class 0 precision: 0.81818 recall: 0.90000 f1: 0.85714
+
+class 1 precision: 1.00000 recall: 0.70000 f1: 0.82353
+
+class 2 precision: 0.89474 recall: 0.85000 f1: 0.87179
+
+class 3 precision: 0.82609 recall: 0.95000 f1: 0.88372
+
+class 4 precision: 0.90909 recall: 1.00000 f1: 0.95238
 
 
 </details>
-Etc.
+
+
+<details>
+<summary>
+ViT-L Histo (UNI) External Validation
+</summary>
+
+
+|  | HGSC | LGSC |  CCC | EC | MC |
+| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
+| HGSC | **27** | 0 | 1 | 2 | 0 |
+| LGSC | 0 | **9** | 0 | 0 | 0 |
+| CCC | 0 | 1 | **19** | 0 | 0 |
+| EC | 0 | 0 | 0 | **10** | 1 |
+| MC | 0 | 0 | 0 | 1 | **9** |
+
+class 0 precision: 1.00000 recall: 0.90000 f1: 0.94737
+
+class 1 precision: 0.90000 recall: 1.00000 f1: 0.94737
+
+class 2 precision: 0.95000 recall: 0.95000 f1: 0.95000
+
+class 3 precision: 0.76923 recall: 0.90909 f1: 0.83333
+
+class 4 precision: 0.90000 recall: 0.90000 f1: 0.90000
+
+
+
+</details>
 
 
 ## Code Examples
