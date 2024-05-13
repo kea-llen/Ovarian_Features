@@ -4,7 +4,7 @@
 *An extensive analysis of feature extraction techniques in attention-based multiple instance learning ([ABMIL](https://proceedings.mlr.press/v80/ilse18a.html?ref=https://githubhelp.com))* 
 
 
-<img src="ABMILarchitecture-min.png" align="centre" width="900"/>
+<img src="ABMILpipelineUpdate-min.png" align="centre" width="900"/>
 
 ## Hyperparameters
 Final Hyperparamters Determined by Hyperparameter Tuning: 
