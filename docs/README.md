@@ -1,4 +1,4 @@
-## Histopathology Foundation Models Significantly Improve Ovarian Cancer Subtyping
+## Histopathology Foundation Models Enable Accurate Ovarian Cancer Subtype Classification
 <img src="CISTIB logo.png" align="right" width="240"/>
 
 *An extensive analysis of feature extraction techniques in attention-based multiple instance learning ([ABMIL](https://proceedings.mlr.press/v80/ilse18a.html?ref=https://githubhelp.com))* 
