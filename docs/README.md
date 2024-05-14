@@ -58,6 +58,8 @@ An issue with unstable random seeds effected some early experiments, but this wa
 
 ## Results
 
+
+<details>
 <summary>
 Confusion Matrices
 </summary>
@@ -911,24 +913,6 @@ class 4 precision: 0.83544 recall: 0.66667 f1: 0.74157
 </details>
 
 
-
-|  | HGSC | LGSC |  CCC | EC | MC |
-| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
-| HGSC | **** |  |  |  |  |
-| LGSC |  | **** |  |  |  |
-| CCC |  |  | **** |  |  |
-| EC |  |  |  | **** |  |
-| MC |  |  |  |  | **** |
-
-|  | HGSC | LGSC |  CCC | EC | MC |
-| :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
-| HGSC | **** | 0 | 0 | 0 | 0 |
-| LGSC | 0 | **** | 0 | 0 | 0 |
-| CCC | 0 | 0 | **** | 0 | 0 |
-| EC | 0 | 0 | 0 | **** | 0 |
-| MC | 0 | 0 | 0 | 0 | **** |
-
-
 <details>
 <summary>
 ViT-L Histo (UNI) Hold-out Testing
@@ -980,10 +964,9 @@ class 3 precision: 0.76923 recall: 0.90909 f1: 0.83333
 
 class 4 precision: 0.90000 recall: 0.90000 f1: 0.90000
 
-
-
 </details>
 
+</details>
 
 ## Code Examples
 The following code includes examples from every stage of pre-processing, hyperparameter tuning, and model validation.  
