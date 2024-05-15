@@ -83,12 +83,13 @@ class Generic_WSI_Classification_Dataset(Dataset):
                 self.patient_strat = patient_strat
                 self.train_ids, self.val_ids, self.test_ids  = (None, None, None)
                 self.data_dir = None
+                self.data_dir_aug = None
                 self.coords_path = coords_path
                 self.perturb_variance = perturb_variance
                 self.number_of_augs = number_of_augs
                 self.slide_ext = slide_ext
                 self.data_h5_dir = data_h5_dir
-                self.data_slide_dir = data_slide_dir
+                self.data_slide_dir = data_slide_dir        
                 self.max_patches_per_slide = max_patches_per_slide
                 self.model_type = model_type
 
