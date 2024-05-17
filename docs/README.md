@@ -3,8 +3,14 @@
 
 *An extensive analysis of feature extraction techniques in attention-based multiple instance learning ([ABMIL](https://proceedings.mlr.press/v80/ilse18a.html?ref=https://githubhelp.com))* 
 
-
 <img src="ABMILpipelineUpdate-min.png" align="centre" width="900"/>
+
+Ovarian cancer histological subtype classification using a total of 12 feature extraction techniques. This includes:
+- Three feature extraction model architectures (ResNet50, ResNet18, ViT-L)
+- Three pretraining strategies (ImageNet, Histo-ResNet18 with SimCLR, Histo-ViT ('UNI') with DINOv2)
+- Two normalisation strategies (Reinhard Normalisation, Macenko Normalisation)
+- Three quantities of colour-augmented training data (5x, 10x, 20x) 
+- Two tissue segmentation strategies (CLAM-default saturation thresholding, Otsu saturation thresholding)
 
 ## Hyperparameters
 Final Hyperparamters Determined by Hyperparameter Tuning: 
