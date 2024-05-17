@@ -58,6 +58,9 @@ An issue with unstable random seeds effected some early experiments, but this wa
 
 ## Results
 
+Five-class ovarian cancer subtype classification results from three validations. Stratified 5-fold cross-validation used all available training data (1864 WSIs from 434 patients). Independent hold-out testing and external validation used an ensemble of the five cross-validation models. Hold-out testing was performed using 100 WSIs from 30 patients, and external validation was performed using 80 WSIs from 80 patients from the [Transcanadian Study](https://www.medicalimageanalysis.com/data/ovarian-carcinomas-histopathology-dataset). 
+
+<img src="PreprocessingResults.png" align="centre" width="900"/>
 
 <details>
 <summary>
