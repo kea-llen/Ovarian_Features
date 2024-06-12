@@ -58,11 +58,11 @@ for model_name in model_names:
             all_Ys=all_Ys+list(full_df['Y'])
             if args.num_classes==2:
                 all_p1s=all_p1s+list(full_df['p_1'])
+
+            if len(all_probs)<1:
+                all_probs=full_df.iloc[:,-args.num_classes:]
             else:
-                if len(all_probs)<1:
-                    all_probs=full_df.iloc[:,-args.num_classes:]
-                else:
-                    all_probs=all_probs.append(full_df.iloc[:,-args.num_classes:])
+                all_probs=all_probs.append(full_df.iloc[:,-args.num_classes:])
 
 
         if args.ensemble:
