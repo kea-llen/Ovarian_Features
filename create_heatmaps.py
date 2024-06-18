@@ -20,7 +20,6 @@ from wsi_core.batch_process_utils import initialize_df
 from vis_utils.heatmap_utils import initialize_wsi, drawHeatmap, compute_from_patches
 from wsi_core.wsi_utils import sample_rois
 from utils.file_utils import save_hdf5
-from HIPT_4K.hipt_4k import HIPT_4K
 from torchvision import transforms
 from datasets.dataset_h5 import eval_transforms
 import timm
