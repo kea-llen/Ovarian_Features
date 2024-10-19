@@ -13,7 +13,7 @@ parser.add_argument('--seed', type=int, default=1,
 parser.add_argument('--unique_tests', default=False, action='store_true',help='ensure all test sets are unique')
 parser.add_argument('--k', type=int, default=10,
                     help='number of splits (default: 10)')
-parser.add_argument('--task', type=str, choices=['task_1_tumor_vs_normal', 'task_2_tumor_subtyping','custom','custom_998','custom_556','custom_714','custom_912_aug','custom_20','esgo_staging','esgo_train_all','esgo_train_fewerHGSC','esgo_all','nsclc','canadian','treatment','malignancy'])
+parser.add_argument('--task', type=str, choices=['task_1_tumor_vs_normal', 'task_2_tumor_subtyping','custom','custom_998','custom_556','custom_714','custom_912_aug','custom_20','esgo_staging','esgo_train_all','esgo_train_fewerHGSC','esgo_all','nsclc','canadian','treatment','malignancy','metastasis'])
 parser.add_argument('--val_frac', type=float, default= 0.1,
                     help='fraction of labels for validation (default: 0.1)')
 parser.add_argument('--test_frac', type=float, default= 0.1,
@@ -150,7 +150,15 @@ elif args.task == 'malignancy':
                             patient_strat= True,
                             ignore=[])
 
-
+elif args.task == 'metastasis':
+    args.n_classes=2
+    dataset =  Generic_WSI_Classification_Dataset(csv_path = '/mount_data/Omentum_data/omentum_train_set.csv',
+                            shuffle = False,
+                            seed = args.seed,
+                            print_info = True,
+                            label_dict = {'benign':0,'metastasis':1},
+                            patient_strat= True,
+                            ignore=[])
 
 elif args.task == 'custom_912_aug': ## The above 912 with augmentations
     args.n_classes=5
