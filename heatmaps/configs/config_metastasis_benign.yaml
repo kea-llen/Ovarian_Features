@@ -1,251 +1,76 @@
-case_id	slide_id	label
-BR1066	555079	benign
-BR1066	555223	benign
-BR1066	554948	benign
-BR1066	555050	benign
-BR1054	552013	benign
-BR1054	564927	benign
-BR1054	565122	benign
-BR1076	551979	benign
-BR1076	551978	benign
-BR1076	551977	benign
-BR1076	551976	benign
-BR1076	551975	benign
-BR1076	551992	benign
-BR1076	551991	benign
-BR1076	551968	benign
-BR1077	551996	benign
-BR1077	551995	benign
-BR1077	551994	benign
-BR1077	551993	benign
-BR1074	549262	benign
-BR1074	563781	benign
-BR1074	563775	benign
-BR1082	549234	benign
-BR1082	549231	benign
-BR1082	549230	benign
-BR1082	549229	benign
-BR1082	549228	benign
-BR1082	549227	benign
-BR1085	549116	benign
-BR1085	549106	benign
-BR1085	549107	benign
-BR1085	549108	benign
-BR1090	552448	benign
-BR1090	552447	benign
-BR1090	563345	benign
-BR1090	563346	benign
-BR1090	563347	benign
-BR1092	552622	benign
-BR1092	552621	benign
-BR1092	565038	benign
-BR1094	553139	benign
-BR1094	554939	benign
-BR1094	554936	benign
-BR1094	552607	benign
-BR1094	552599	benign
-BR1097	552423	benign
-BR1099	552406	benign
-BR1099	552407	benign
-BR1099	552408	benign
-BR1099	552409	benign
-BR1100	552397	benign
-BR1100	552396	benign
-BR1100	552388	benign
-BR1100	552389	benign
-BR1101	565109	benign
-BR1101	552385	benign
-BR1101	565123	benign
-BR1103	563628	benign
-BR1103	563630	benign
-BR1103	563626	benign
-BR1104	553362	benign
-BR1104	553361	benign
-BR1104	553378	benign
-BR1104	553366	benign
-BR1109	553344	benign
-BR1109	565051	benign
-BR1109	553346	benign
-BR1109	553348	benign
-BR1109	565044	benign
-BR1109	553350	benign
-BR1110	553412	benign
-BR1110	553413	benign
-BR1110	553414	benign
-BR1110	564755	benign
-BR1110	563361	benign
-BR1110	563367	benign
-BR1111	553403	benign
-BR1111	553398	benign
-BR1111	553397	benign
-BR1111	564636	benign
-BR1112	553536	benign
-BR1112	553532	benign
-BR1112	553535	benign
-BR1112	563777	benign
-BR1113	553529	benign
-BR1113	553530	benign
-BR1113	553531	benign
-BR1118	553484	benign
-BR1118	553490	benign
-BR1118	553497	benign
-BR1118	553441	benign
-BR0891	553726	benign
-BR0891	553698	benign
-BR0877	555841	benign
-BR0877	555845	benign
-BR0877	555848	benign
-BR0877	555869	benign
-BR1127	554964	benign
-BR1127	554965	benign
-BR1127	554962	benign
-BR1127	554963	benign
-BR1031	555927	benign
-BR1031	555928	benign
-BR1031	555929	benign
-BR1031	555930	benign
-BR1031	555931	benign
-BR1132	556057	benign
-BR1132	556058	benign
-BR1132	556059	benign
-BR1132	556060	benign
-BR0700	556435	benign
-BR0700	556215	benign
-BR0700	556216	benign
-BR0700	556217	benign
-BR0675	554762	benign
-BR1133	556395	benign
-BR1133	556390	benign
-BR1133	556385	benign
-BR1133	556377	benign
-BR1134	556513	benign
-BR1134	556516	benign
-BR1134	556519	benign
-BR1134	556523	benign
-BR1134	556528	benign
-BR1134	556531	benign
-BR1135	566073	benign
-BR1135	556599	benign
-BR1135	556600	benign
-BR1135	556563	benign
-BR1135	556566	benign
-BR1135	556572	benign
-BR0854	556181	benign
-BR0854	556182	benign
-BR0854	556183	benign
-BR0854	556184	benign
-BR0854	556167	benign
-BR0854	556168	benign
-BR0851	556174	benign
-BR0851	556175	benign
-BR0851	556158	benign
-BR0851	556159	benign
-BR0851	556160	benign
-BR0851	556161	benign
-BR0529	557632	benign
-BR0529	557661	benign
-BR0529	557850	benign
-BR0535	556844	benign
-BR0535	556839	benign
-BR0535	556835	benign
-BR0725	566023	benign
-BR0725	566044	benign
-BR0725	566003	benign
-BR0725	560479	benign
-BR0706	561803	benign
-BR0706	561778	benign
-BR0706	561794	benign
-BR0706	563791	benign
-BR0706	563368	benign
-BR0706	563792	benign
-BR0691	561346	benign
-BR0691	561354	benign
-BR0691	561357	benign
-BR0691	561349	benign
-BR0539	561873	benign
-BR0539	564752	benign
-BR0539	563372	benign
-BR0539	563373	benign
-BR0539	564751	benign
-BR0539	564750	benign
-BR0625	561755	benign
-BR0625	563635	benign
-BR0625	563632	benign
-BR0625	563787	benign
-BR0625	563789	benign
-BR0625	564720	benign
-BR0863	563313	benign
-BR0863	563317	benign
-BR0863	563318	benign
-BR0863	563319	benign
-BR0792	563024	benign
-BR0792	563772	benign
-BR0792	563026	benign
-BR0792	563028	benign
-BR0792	563031	benign
-BR0792	563033	benign
-BR0973	563337	benign
-BR0973	563637	benign
-BR0973	563338	benign
-BR0973	564041	benign
-BR0962	563339	benign
-BR0962	563340	benign
-BR0962	563776	benign
-BR0962	563350	benign
-BR0961	563351	benign
-BR0961	563352	benign
-BR0961	563353	benign
-BR0961	563354	benign
-BR0940	563355	benign
-BR0940	563356	benign
-BR0940	563357	benign
-BR0547	563896	benign
-BR0547	563793	benign
-BR0547	563365	benign
-BR0547	563794	benign
-BR0547	563779	benign
-BR0547	563780	benign
-BR0530	563778	benign
-BR0530	563360	benign
-BR0530	564742	benign
-BR0530	563795	benign
-BR0530	563796	benign
-BR0530	564736	benign
-BR0530	563364	benign
-BR0790	563782	benign
-BR0790	563783	benign
-BR0790	563790	benign
-BR0790	563784	benign
-BR0790	563788	benign
-BR0790	563785	benign
-BR0790	563786	benign
-BR0351	564634	benign
-BR0351	564035	benign
-BR0211	564024	benign
-BR0211	564003	benign
-BR0211	563622	benign
-BR0211	564631	benign
-BR0211	564630	benign
-BR0211	563992	benign
-BR0211	564632	benign
-BR0211	564011	benign
-BR0252	564633	benign
-BR0252	564635	benign
-BR0047	564030	benign
-BR0047	563978	benign
-BR0047	563929	benign
-BR0037	563960	benign
-BR1062	548136	benign
-BR1062	548137	benign
-BR1062	548138	benign
-BR1093	555881	benign
-BR1093	555880	benign
-BR1093	555879	benign
-BR1093	555878	benign
-BR1093	555877	benign
-BR1092	552619	benign
-BR1054	552010	benign
-BR1101	552384	benign
-BR0884	554058	benign
-BR0884	554059	benign
-BR1103	552668	benign
+# CUDA_VISIBLE_DEVICES=0,1 python create_heatmaps.py --config config_template.yaml
+--- 
+exp_arguments:
+  # number of classes
+  n_classes: 2
+  # name tag for saving generated figures and assets
+  save_exp_code: heatmaps 
+  # where to save raw asset files
+  raw_save_dir: /mount_outputs/heatmaps
+  # where to save final heatmaps
+  production_save_dir: /mount_outputs/heatmaps
+  batch_size: 2
+data_arguments: 
+  # where is data stored; can be a single str path or a dictionary of key, data_dir mapping
+  data_dir: /mount_data/Benign
+  # column name for key in data_dir (if a dict mapping is used)
+  data_dir_key: source
+  # csv list containing slide_ids (can additionally have seg/patch paramters, class labels, etc.)
+  process_list: benignom.csv
+  # preset file for segmentation/patching
+  preset: presets/malignancy.csv
+  # file extention for slides
+  slide_ext: .svs
+  # label dictionary for str: interger mapping (optional)
+  label_dict:
+    benign: 0
+    metastasis: 1    
+patching_arguments:
+  # arguments for patching
+  patch_size: 512
+  overlap: 0.5
+  patch_level: 0
+  custom_downsample: 2
+model_arguments: 
+  # arguments for initializing model from checkpoint
+  ckpt_path: /mount_outputs/omentum_uni_model_s1/s_0_checkpoint.pt
+  model_type: clam_sb # see utils/eval_utils/
+  initiate_fn: initiate_model # see utils/eval_utils/
+  model_size: small
+  drop_out: 0.0
+heatmap_arguments:
+  max_size: 3000
+  # downsample at which to visualize heatmap (-1 refers to downsample closest to 32x downsample)
+  vis_level: -1
+  # transparency for overlaying heatmap on background (0: background only, 1: foreground only)
+  alpha: 0.4
+  # whether to use a blank canvas instead of original slide
+  blank_canvas: false
+  # whether to also save the original H&E image
+  save_orig: true
+  # file extension for saving heatmap/original image
+  save_ext: jpg
+  # whether to calculate percentile scores in reference to the set of non-overlapping patches
+  use_ref_scores: true
+  # whether to use gaussian blur for further smoothing
+  blur: false
+  # whether to shift the 4 default corner points for checking if a patch is inside a foreground contour
+  use_center_shift: true
+  # whether to only compute heatmap for ROI specified by x1, x2, y1, y2
+  use_roi: false 
+  # whether to calculate heatmap with specified overlap (by default, coarse heatmap without overlap is always calculated)
+  calc_heatmap: true
+  # whether to binarize attention scores
+  binarize: false
+  # binarization threshold: (0, 1)
+  binary_thresh: -1
+  # factor for downscaling the heatmap before final dispaly
+  custom_downsample: 1
+  cmap: jet
+sample_arguments:
+  samples:
+    - name: "topk_high_attention"
+      sample: true
+      seed: 1
+      k: 10 # save top-k patches
+      mode: topk
